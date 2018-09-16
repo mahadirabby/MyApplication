@@ -1,11 +1,13 @@
 package com.example.mahadirabby.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -15,6 +17,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     RecyclerView mBlogList2;
     DatabaseReference mDatabase;
+    TextView mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +47,21 @@ public class DetailsActivity extends AppCompatActivity {
 
         ) {
             @Override
-            protected void populateViewHolder(mahadiDetails viewHolder, details model, int position) {
+            protected void populateViewHolder(mahadiDetails viewHolder, final details model, int position) {
                 viewHolder.setmDetails(model.getName());
+                viewHolder.mDetails.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+
+                        Toast.makeText(DetailsActivity.this, "" + model.getName(), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(DetailsActivity.this, ThirdActivity.class);
+                        i.putExtra("KEY", model.getName());
+                        startActivity(i);
+
+
+                    }
+                });
             }
         };
 
